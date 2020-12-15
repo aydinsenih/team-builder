@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 export default function Form(props){
-    const {values, update, submit} = props;
+    const {values, update, submit, isEditing} = props;
 
     const onChange = (evt) => {
         const {name, value} = evt.target;
@@ -13,11 +14,12 @@ export default function Form(props){
         submit();
     }
 
+
     return(
         <form className="form container" onSubmit={onSubmit}>
-            <div className="form-gropu inputs">
+            <FormGroupDiv className="form-group inputs">
                 <label>
-                    Name
+                    Name<br/>
                     <input 
                         name="name"
                         type="text"
@@ -28,7 +30,7 @@ export default function Form(props){
                 </label>
 
                 <label>
-                    Email
+                    Email<br/>
                     <input 
                         name="email"
                         type="email"
@@ -39,7 +41,7 @@ export default function Form(props){
                 </label>
 
                 <label>
-                    Role
+                    Role<br/>
                     <select name="role" value={values.role} onChange={onChange}>
                         <option value="">--Select Role--</option>
                         <option value="Front-end Developer"> Front-end Developer</option>
@@ -49,9 +51,21 @@ export default function Form(props){
                     </select>
                 </label>
                 <div className="submit">
-                    <button>Submit</button>
+                    <Button>{isEditing ? "Edit" : "Submit"}</Button>
                 </div>
-            </div>
+            </FormGroupDiv>
         </form>
     )
 }
+
+const FormGroupDiv = styled.div`
+display:flex;
+justify-content:center;
+flex-direction:column;
+background-color:wheat;
+`;
+
+const Button = styled.button`
+background-color:coral;
+margin: 5px;
+`;
